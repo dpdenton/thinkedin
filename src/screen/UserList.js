@@ -21,7 +21,7 @@ const UserList = props => {
                     Welcome to ThinkedIn: the fake redux-driven LinkedIn.
                 </Heading>
                 <Heading>
-                    Checkout some profiles below.
+                    Check out some profiles below.
                 </Heading>
             </Section>
             <EntityList
