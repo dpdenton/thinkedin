@@ -15,7 +15,7 @@ const UserListItem = props => {
                 subHeading={`"${props.moto}"`}
                 />
             <Button
-                title={`Go to ${props.name}'s profile`}
+                title={`${props.name}'s profile`}
                 onPress={props.onPress}
             />
         </Section>
