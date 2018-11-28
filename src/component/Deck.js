@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Animated, PanResponder, Dimensions} from 'react-native';
+import {View, Animated, PanResponder, Dimensions, LayoutAnimation, UIManager} from 'react-native';
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25;
+const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.5;
 
 class Deck extends React.Component {
 
@@ -42,11 +42,15 @@ class Deck extends React.Component {
         });
     }
 
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        LayoutAnimation.spring();
+    }
+
     dropCard(liked) {
         Animated
-            .spring(this._position, {toValue: {x: 0, y: SCREEN_HEIGHT}})
+            .timing(this._position, {toValue: {x: 0, y: SCREEN_HEIGHT}})
             .start(this.onDroppedCard.bind(this, liked));
-
     }
 
     onDroppedCard(liked) {
@@ -112,15 +116,16 @@ class Deck extends React.Component {
                 }
 
                 return (
-                    <View
+                    <Animated.View
+                        key={item.id}
                         style={{
                             ...styles.card,
                             zIndex: -index,
+                            top: (index - cardIndex) * 5,
                         }}
-                        key={item.id}
                     >
                         {renderCard(item)}
-                    </View>
+                    </Animated.View>
                 )
             });
     }
