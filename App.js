@@ -9,6 +9,8 @@ import axiosMiddleware from 'redux-axios-middleware';
 import reducer from './src/reducer';
 import UserList from "./src/screen/UserList";
 import UserDetail from "./src/screen/UserDetail";
+import Swiper from "./src/screen/Swiper";
+
 import {BASE_API_URL} from "./src/constants";
 
 const client = axios.create({
@@ -19,6 +21,7 @@ const client = axios.create({
 const store = createStore(reducer, applyMiddleware(thunk, axiosMiddleware(client)));
 
 const NavigationStack = createStackNavigator({
+    BallAnimation: {screen: Swiper},
     Home: {screen: UserList},
     UserDetail: {screen: UserDetail},
 });
